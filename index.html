@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards Sonic - Perguntas e Respostas</title>
+    <style>
+        /* Resetando margens e padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #F0F8FF; /* Fundo azul claro mais suave */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #1E90FF; /* Azul vibrante */
+            text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.8);
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 40px;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            padding: 20px;
+        }
+
+        /* Cartões */
+        .card {
+            width: 170px;
+            height: 220px;
+            margin: 10px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            transform: scale(1);
+            transition: transform 0.3s, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* Efeito de hover nos cartões */
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border: 3px solid #FFD700; /* Adicionando uma borda dourada ao passar o mouse */
+        }
+
+        .card:active {
+            transform: scale(1);
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .card-inner.flip {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        .card-back {
+            background-color: #333333; /* Cor escura para o verso */
+            color: #FFD700;
+            transform: rotateY(180deg);
+            padding: 10px;
+            font-size: 1rem;
+        }
+
+        /* Cores específicas para cada cartão */
+        .blue { background-color: #0077C8; }
+        .white { background-color: #FFFFFF; color: black; }
+        .black { background-color: #333333; }
+        .silver { background-color: #C0C0C0; }
+        .gold { background-color: #FFD700; }
+        .colorful { background-color: #FF69B4; }
+
+        /* Estilo do feedback (resposta correta/incorreta) */
+        #feedback {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .correct {
+            color: green;
+            font-size: 1.4rem;
+        }
+
+        .incorrect {
+            color: red;
+            font-size: 1.4rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .card {
+                width: 140px;
+                height: 190px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                width: 120px;
+                height: 160px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Flashcards Sonic - Perguntas e Respostas</h1>
+
+    <div class="card-container">
+        <!-- Cartão 1 -->
+        <div class="card blue" onclick="flipCard(this, 'Quem é o herói mais rápido do mundo?', 'Sonic é o ouriço mais rápido e protagonista dos jogos.')">
+            <div class="card-inner">
+                <div class="card-front">Quem é o herói mais rápido do mundo?</div>
+                <div class="card-back">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <!-- Cartão 2 -->
+        <div class="card white" onclick="flipCard(this, 'Quem é o parceiro de Sonic que tem duas caudas?', 'Tails, também conhecido como Miles Prower, é o parceiro leal de Sonic com duas caudas.')">
+            <div class="card-inner">
+                <div class="card-front">Quem é o parceiro de Sonic que tem duas caudas?</div>
+                <div class="card-back">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <!-- Cartão 3 -->
+        <div class="card black" onclick="flipCard(this, 'Quem é o guardião da Master Emerald?', 'Knuckles é o guardião da Master Emerald e sempre tenta proteger a pedra preciosa.')">
+            <div class="card-inner">
+                <div class="card-front">Quem é o guardião da Master Emerald?</div>
+                <div class="card-back">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <!-- Cartão 4 -->
+        <div class="card silver" onclick="flipCard(this, 'Quem é o rival de Sonic com poderes especiais?', 'Shadow é um anti-herói que tem poderes sobrenaturais e rivaliza com Sonic.')">
+            <div class="card-inner">
+                <div class="card-front">Quem é o rival de Sonic com poderes especiais?</div>
+                <div class="card-back">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <!-- Cartão 5 -->
+        <div class="card gold" onclick="flipCard(this, 'Quem é o vilão que tenta dominar o mundo?', 'Eggman é o vilão principal, conhecido por suas invenções e planos para dominar o mundo.')">
+            <div class="card-inner">
+                <div class="card-front">Quem é o vilão que tenta dominar o mundo?</div>
+                <div class="card-back">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <!-- Cartão 6 -->
+        <div class="card colorful" onclick="flipCard(this, 'Quem usa um martelo enorme e gosta de Sonic?', 'Amy Rose é uma garota corajosa que usa um martelo gigante e é apaixonada por Sonic.')">
+            <div class="card-inner">
+                <div class="card-front">Quem usa um martelo enorme e gosta de Sonic?</div>
+                <div class="card-back">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="feedback"></div>
+
+    <script>
+        function flipCard(card, question, answer) {
+            const inner = card.querySelector('.card-inner');
+            const back = card.querySelector('.card-back');
+            const feedback = document.getElementById('feedback');
+            
+            inner.classList.toggle('flip');
+            
+            if (inner.classList.contains('flip')) {
+                // Exibe a resposta ao virar o cartão
+                back.innerHTML = `<p>${answer}</p>`;
+                // Exibe o feedback na parte inferior
+                feedback.innerHTML = `<p class="correct">Resposta correta: ${answer}</p>`;
+            } else {
+                // Exibe a pergunta novamente
