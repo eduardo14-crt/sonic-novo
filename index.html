@@ -14,31 +14,31 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #F0F8FF; /* Fundo azul claro mais suave */
+            background-color: #E0F7FA; /* Fundo azul claro */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
             text-align: center;
-            color: white;
+            color: #333; /* Texto mais escuro para contraste */
             overflow: hidden;
         }
 
         h1 {
-            color: #1E90FF; /* Azul vibrante */
-            text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.8);
+            color: #0277BD; /* Azul vibrante */
             font-size: 3rem;
             font-weight: bold;
             margin-bottom: 40px;
             font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.8);
         }
 
         .card-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 25px;
+            gap: 20px;
             padding: 20px;
         }
 
@@ -55,84 +55,39 @@
             position: relative;
             cursor: pointer;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            background-color: #0288D1; /* Azul padrão */
+            color: white;
             transform: scale(1);
-            transition: transform 0.3s, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
-            overflow: hidden;
-            perspective: 1000px;
+            transition: transform 0.3s, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
         }
 
         /* Efeito de hover nos cartões */
         .card:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-            border: 3px solid #FFD700; /* Adicionando uma borda dourada ao passar o mouse */
+            background-color: #0277BD; /* Escurece o tom de azul no hover */
         }
 
-        .card:active {
-            transform: scale(1);
+        .card .card-back {
+            display: none;
         }
 
-        .card-inner {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: transform 0.5s;
-            transform-style: preserve-3d;
-            position: relative;
-        }
-
-        .card-inner.flip {
-            transform: rotateY(180deg);
-        }
-
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 15px;
-            font-size: 1.1rem;
-            color: white;
-        }
-
-        .card-back {
-            background-color: #333333; /* Cor escura para o verso */
-            color: #FFD700;
-            transform: rotateY(180deg);
+        /* Cartão revela resposta ao passar o mouse */
+        .card:hover .card-back {
+            display: block;
+            background-color: #01579B; /* Cor de fundo escura para o verso */
+            color: #FFEB3B; /* Amarelo para o texto de resposta */
+            text-align: center;
             padding: 10px;
-            font-size: 1rem;
         }
 
         /* Cores específicas para cada cartão */
-        .blue { background-color: #0077C8; }
-        .white { background-color: #FFFFFF; color: black; }
-        .black { background-color: #333333; }
-        .silver { background-color: #C0C0C0; }
-        .gold { background-color: #FFD700; }
-        .colorful { background-color: #FF69B4; }
-
-        /* Estilo do feedback (resposta correta/incorreta) */
-        #feedback {
-            margin-top: 20px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #FFD700;
-        }
-
-        .correct {
-            color: green;
-            font-size: 1.4rem;
-        }
-
-        .incorrect {
-            color: red;
-            font-size: 1.4rem;
-        }
+        .card.blue { background-color: #0288D1; }
+        .card.white { background-color: #FFFFFF; color: black; }
+        .card.black { background-color: #333333; color: white; }
+        .card.silver { background-color: #C0C0C0; }
+        .card.gold { background-color: #FFD700; }
+        .card.colorful { background-color: #FF69B4; }
 
         /* Responsividade */
         @media (max-width: 768px) {
@@ -164,75 +119,48 @@
 
     <div class="card-container">
         <!-- Cartão 1 -->
-        <div class="card blue" onclick="flipCard(this, 'Quem é o herói mais rápido do mundo?', 'Sonic é o ouriço mais rápido e protagonista dos jogos.')">
+        <div class="card blue">
             <div class="card-inner">
                 <div class="card-front">Quem é o herói mais rápido do mundo?</div>
-                <div class="card-back">
-                    <p></p>
-                </div>
+                <div class="card-back">Sonic é o ouriço mais rápido e protagonista dos jogos.</div>
             </div>
         </div>
         <!-- Cartão 2 -->
-        <div class="card white" onclick="flipCard(this, 'Quem é o parceiro de Sonic que tem duas caudas?', 'Tails, também conhecido como Miles Prower, é o parceiro leal de Sonic com duas caudas.')">
+        <div class="card white">
             <div class="card-inner">
                 <div class="card-front">Quem é o parceiro de Sonic que tem duas caudas?</div>
-                <div class="card-back">
-                    <p></p>
-                </div>
+                <div class="card-back">Tails, também conhecido como Miles Prower, é o parceiro leal de Sonic com duas caudas.</div>
             </div>
         </div>
         <!-- Cartão 3 -->
-        <div class="card black" onclick="flipCard(this, 'Quem é o guardião da Master Emerald?', 'Knuckles é o guardião da Master Emerald e sempre tenta proteger a pedra preciosa.')">
+        <div class="card black">
             <div class="card-inner">
                 <div class="card-front">Quem é o guardião da Master Emerald?</div>
-                <div class="card-back">
-                    <p></p>
-                </div>
+                <div class="card-back">Knuckles é o guardião da Master Emerald e sempre tenta proteger a pedra preciosa.</div>
             </div>
         </div>
         <!-- Cartão 4 -->
-        <div class="card silver" onclick="flipCard(this, 'Quem é o rival de Sonic com poderes especiais?', 'Shadow é um anti-herói que tem poderes sobrenaturais e rivaliza com Sonic.')">
+        <div class="card silver">
             <div class="card-inner">
                 <div class="card-front">Quem é o rival de Sonic com poderes especiais?</div>
-                <div class="card-back">
-                    <p></p>
-                </div>
+                <div class="card-back">Shadow é um anti-herói que tem poderes sobrenaturais e rivaliza com Sonic.</div>
             </div>
         </div>
         <!-- Cartão 5 -->
-        <div class="card gold" onclick="flipCard(this, 'Quem é o vilão que tenta dominar o mundo?', 'Eggman é o vilão principal, conhecido por suas invenções e planos para dominar o mundo.')">
+        <div class="card gold">
             <div class="card-inner">
                 <div class="card-front">Quem é o vilão que tenta dominar o mundo?</div>
-                <div class="card-back">
-                    <p></p>
-                </div>
+                <div class="card-back">Eggman é o vilão principal, conhecido por suas invenções e planos para dominar o mundo.</div>
             </div>
         </div>
         <!-- Cartão 6 -->
-        <div class="card colorful" onclick="flipCard(this, 'Quem usa um martelo enorme e gosta de Sonic?', 'Amy Rose é uma garota corajosa que usa um martelo gigante e é apaixonada por Sonic.')">
+        <div class="card colorful">
             <div class="card-inner">
                 <div class="card-front">Quem usa um martelo enorme e gosta de Sonic?</div>
-                <div class="card-back">
-                    <p></p>
-                </div>
+                <div class="card-back">Amy Rose é uma garota corajosa que usa um martelo gigante e é apaixonada por Sonic.</div>
             </div>
         </div>
     </div>
 
-    <div id="feedback"></div>
-
-    <script>
-        function flipCard(card, question, answer) {
-            const inner = card.querySelector('.card-inner');
-            const back = card.querySelector('.card-back');
-            const feedback = document.getElementById('feedback');
-            
-            inner.classList.toggle('flip');
-            
-            if (inner.classList.contains('flip')) {
-                // Exibe a resposta ao virar o cartão
-                back.innerHTML = `<p>${answer}</p>`;
-                // Exibe o feedback na parte inferior
-                feedback.innerHTML = `<p class="correct">Resposta correta: ${answer}</p>`;
-            } else {
-                // Exibe a pergunta novamente
+</body>
+</html>
