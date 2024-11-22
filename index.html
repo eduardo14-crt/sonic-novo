@@ -57,7 +57,7 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
             background-color: #0288D1; /* Azul padrão */
             color: white;
-            transform: scale(1);
+            overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
         }
 
@@ -68,17 +68,18 @@
             background-color: #0277BD; /* Escurece o tom de azul no hover */
         }
 
+        /* Cartão revela resposta ao passar o mouse */
         .card .card-back {
             display: none;
-        }
-
-        /* Cartão revela resposta ao passar o mouse */
-        .card:hover .card-back {
-            display: block;
             background-color: #01579B; /* Cor de fundo escura para o verso */
             color: #FFEB3B; /* Amarelo para o texto de resposta */
             text-align: center;
             padding: 10px;
+            font-size: 1.1rem;
+        }
+
+        .card:hover .card-back {
+            display: block;
         }
 
         /* Cores específicas para cada cartão */
